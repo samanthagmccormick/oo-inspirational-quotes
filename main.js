@@ -1,9 +1,10 @@
 ///////////////////////////// OBJECTS /////////////////////////
 
 // Your single quote
-var Quote = function(quote, author) {
+var Quote = function(quote, author, rating) {
 	this.quote = quote;
 	this.author = author;
+	this.rating = rating;
 };
 
 	// Method to add a DOM element that represents each quote
@@ -11,17 +12,22 @@ var Quote = function(quote, author) {
 		// If the element property already exists, just return it
 		if(this.element) return this.element;
 
+		var ratingFieldset = $('<fieldset class="rating"><legend>Rating:</legend><input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label><input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label><input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label><input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label><input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label></fieldset>');
+
+
 		// If the element property does NOT exist, generate a 
 		// new DOM element and store it inside the instances
 		// "element" property
 
 		// ADD TO PAGE 
-		this.element = $('<div class = "quoteBlock"><p class = "enteredQuote">' + this.quote + '</p><p class = "enteredAuthor">' + this.author + '</p></div>');
+		this.element = $('<li class = "quoteBlock" data-index = ""><p class = "enteredQuote">' + this.quote + '</p><p class = "enteredAuthor">' + this.author + '</p></li>');
 
 		// Attach an event handler to the element that was created
 		// Take advantage of scope inheritance
 		var author = this;
-		this.element.on('click', this.authorClick.bind(author));
+		$('.enteredAuthor').on('click', this.authorClick.bind(author));
+
+		$(this.element).append('<fieldset class = "rating">' + ratingFieldset.html() +  '</fieldset>')
 
 		return this.element;
 
@@ -30,7 +36,7 @@ var Quote = function(quote, author) {
 	Quote.prototype.authorClick = function() {
 				matchedAuthors.quotes = [];
 				console.log('Find: ' + this.author);
-				console.log(allQuotes.quotes);
+				// console.log(allQuotes.quotes);
 
 				// Find all instances of quote.author within your allQuotes.quotes array....then store all found quotes into a new Collection item, which you defined at the bottom of the page
 				for (var i = 0; i < allQuotes.quotes.length; i++) {
@@ -40,9 +46,9 @@ var Quote = function(quote, author) {
 					}
 				}
 
-				// Console log the matching authors
-				console.log(matchedAuthors);
-				console.log(allQuotes);
+				// // Console log the matching authors
+				// console.log(matchedAuthors);
+				// console.log(allQuotes);
 
 				$('#quoteArea').hide();
 
@@ -68,8 +74,6 @@ var Collection = function(nameOfCollection) {
 
 		// Method to add a DOM element that represents each quote
 	Collection.prototype.render = function() {
-
-		console.log("A collection has been rendered");
 
 		// If the element property already exists, just return it
 		if(this.element) return this.element;
@@ -115,7 +119,7 @@ var Collection = function(nameOfCollection) {
 
 		// Create an instance variable of Quote, and store the 
 		// form entries in the Quote object
-		var newQuote = new Quote(enteredQuote, enteredAuthor);
+		var newQuote = new Quote(enteredQuote, enteredAuthor, 0);
 
 		// Push all the entered data into the array, to store for searching later!
 		allQuotes.quotes.push(newQuote);
@@ -125,12 +129,6 @@ var Collection = function(nameOfCollection) {
 
 		// Append the entered enteredQuote, enteredAuthor, and star rating fieldset
 		$('#quoteArea').append(newQuote.render());
-
-		// Create a rating fieldset
-		var ratingFieldset = $('<fieldset class="rating"><legend>Rating:</legend><input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label><input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label><input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label><input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label><input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label></fieldset>');
-
-		// Append the entered enteredQuote, enteredAuthor, and star rating fieldset
-		$('#quoteArea').append('<fieldset class = "rating">' + ratingFieldset.html() + '</fieldset>');
 
 		$('textarea').remove();
 		$('button').remove();
@@ -151,8 +149,18 @@ var Collection = function(nameOfCollection) {
 	// On change of any input within the star ratings fieldset, 
 	// Take in the rating value, and then replace the star field with it.
 	$(document).on("change", "input", function() {
-		var averageRating = (this.value); 
-		$(this).parent().html('Average Rating: ' + averageRating + ' stars').addClass(averageRating);
+		console.log(this);
+		// Store the rating in the allQuotes array
+		var rating = (this.value); 
+
+
+		console.log($(this));
+
+		// Add the averageRating as a class to the li
+		$(this).closest('li').attr('data-index', rating);
+
+		$(this).parent().replaceWith('<p>Rating: ' + rating + ' stars</p>');
+
 	});
 
 
