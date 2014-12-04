@@ -12,8 +12,7 @@ var Quote = function(quote, author, rating) {
 		// If the element property already exists, just return it
 		if(this.element) return this.element;
 
-		var ratingFieldset = $('<fieldset class="rating"><legend>Rating:</legend><input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label><input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label><input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label><input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label><input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label></fieldset>');
-
+		var ratingFieldset = $('<fieldset class="rating"><p>Rate this quote!</p><input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label><input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label><input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label><input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label><input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label></fieldset>');
 
 		// If the element property does NOT exist, generate a 
 		// new DOM element and store it inside the instances
@@ -72,7 +71,7 @@ var Collection = function(nameOfCollection) {
 	this.quotes = [];
 };
 
-		// Method to add a DOM element that represents each quote
+	// Method to add a DOM element that represents each quote
 	Collection.prototype.render = function() {
 
 		// If the element property already exists, just return it
@@ -98,10 +97,9 @@ var Collection = function(nameOfCollection) {
 	// Show quotes message is automatically hidden
 	$('#clickToShowAllQuotes').hide();
 
-
   	// Form that appears and allows user to add a quote
 	$('#anotherQuote').on('click', function() {
-		$(this).after('<textarea class = "quote" placeholder = "Type your favorite quote here"></textarea><textarea class = "author" placeholder = "Type the author here"></textarea><button id = "submit">Submit</button>');
+		$(this).after('<p><textarea class = "quote" placeholder = "Type quote here"></textarea></p><p><textarea class = "author" placeholder = "Type the author here"></textarea></p><i id = "submit" class="fa fa-2x fa-send">  Submit</i>');
 		$('textarea').focus();  // Auto-focus the textarea
 	});
 
@@ -131,11 +129,9 @@ var Collection = function(nameOfCollection) {
 		$('#quoteArea').append(newQuote.render());
 
 		$('textarea').remove();
-		$('button').remove();
-		$('#anotherQuote').text('Add another quote.... click here.');
+		$('#submit').remove();
 
 	});
-
 
 	// On click of 'click to show all quotes', show all quotes!
 	$('#clickToShowAllQuotes').on("click", function() {
@@ -145,14 +141,12 @@ var Collection = function(nameOfCollection) {
 		$('#clickToShowAllQuotes').hide();
 	});
 
-
 	// On change of any input within the star ratings fieldset, 
 	// Take in the rating value, and then replace the star field with it.
 	$(document).on("change", "input", function() {
 		console.log(this);
 		// Store the rating in the allQuotes array
 		var rating = (this.value); 
-
 
 		console.log($(this));
 
@@ -176,8 +170,6 @@ var allQuotes = new Collection('All Quotes');
 var matchedAuthors = new Collection('Matched Authors');
 
 // Put the quotes into each library
-
-
 
 
 // console.log( shittyQuotes.quotes[0] ); 

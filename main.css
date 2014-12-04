@@ -1,19 +1,27 @@
 .container {
-	max-width: 600px;
+	max-width: 800px;
 	margin: auto;
 	text-align: center;
+}
+
+body {
+    font-size: 12px;
 }
 
 textarea {
 	border: 1px solid gray;
 	border-radius: 5px;
-	height: 50px;
-	margin-right: 10px;
+	height: 30px;
+    width: 300px;
 }
 
 button {
 	display: block;
 	margin: auto;
+}
+
+i {
+    margin: 5px;
 }
 
 #quoteArea, #matchedQuotes  {
@@ -22,18 +30,19 @@ button {
     list-style-type: none;
 }
 
-
 /* QUOTE text area class */
 .quote {
 	font-family: 'Dancing Script', cursive;
-	font-size: 18px;
+	font-size: 1.2em;
+    margin: 5px 0px;
+    height: 100px;
 }
 
 /* QUOTE how it appears on the page*/
 .enteredQuote {
 	margin: 5px;
 	font-family: 'Dancing Script', cursive;
-	font-size: 25px;
+	font-size: 2em;
 }
 
 /* AUTHOR text area class */
@@ -45,6 +54,25 @@ button {
 .enteredAuthor {
 	margin: 5px;
 	font-family: 'Architects Daughter';
+    text-decoration: underline;
+    color: orange;
+}
+
+.enteredAuthor:hover {
+    color: black;
+}
+
+#anotherQuote {
+    display: block;
+    margin: 5px;
+}
+
+.quoteBlock {
+    margin: 40px 0px;
+}
+
+.orange {
+    color: orange;
 }
 
 /*****************/
@@ -67,13 +95,13 @@ button {
 
 .rating:not(:checked) > label {
     float:right;
-    width:1em;
+    width:1.2em;
     padding:0 .1em;
     overflow:hidden;
     white-space:nowrap;
     cursor:pointer;
-    font-size:200%;
     line-height:1.2;
+    font-size: 150%;
     color:#ddd;
     text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
 }
@@ -106,4 +134,8 @@ button {
     position:relative;
     top:2px;
     left:2px;
+}
+
+legend {
+    font-size: 1.2em;
 }
